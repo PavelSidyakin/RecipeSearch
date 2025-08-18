@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="CHOOSE_PER_TEST" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/mainnavigation" />
+            <option value="$PROJECT_DIR$/feature/mainnavigation/mainactivity" />
+            <option value="$PROJECT_DIR$/feature/mainnavigation/navigationdestination" />
+            <option value="$PROJECT_DIR$/feature/recipesearch" />
+            <option value="$PROJECT_DIR$/feature/recipesearch/recipesearchpresentation" />
+            <option value="$PROJECT_DIR$/shared" />
+            <option value="$PROJECT_DIR$/shared/logging" />
+            <option value="$PROJECT_DIR$/shared/strings" />
+            <option value="$PROJECT_DIR$/shared/uikit" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
