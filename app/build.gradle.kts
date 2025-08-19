@@ -41,11 +41,16 @@ dependencies {
 
     implementation(project(":shared:strings"))
     implementation(project(":feature:mainnavigation:mainactivity"))
+    implementation(project(":datasource:local"))
     implementation(project(":datasource:remote"))
     implementation(project(":feature:recipesearch:domain:api"))
     implementation(project(":feature:recipesearch:data:api"))
     implementation(project(":feature:recipesearch:domain:impl"))
     implementation(project(":feature:recipesearch:data:impl"))
+    implementation(project(":feature:recipedetails:domain:api"))
+    implementation(project(":feature:recipedetails:data:api"))
+    implementation(project(":feature:recipedetails:domain:impl"))
+    implementation(project(":feature:recipedetails:data:impl"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

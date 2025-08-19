@@ -17,6 +17,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.recipebook.recipesearch.domain.model.SearchResultSortOption
+import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchExternalEvent
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchListItemState
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchScreenState
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchViewModel
@@ -39,9 +41,12 @@ import com.recipebook.uikit.icons.History
 import com.recipebook.uikit.icons.RsIcon
 import com.recipebook.uikit.size.Padding
 import com.recipebook.uikit.theme.RecipeSearchTheme
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun RecipeSearchScreen(
+    onRecipeClicked: (recipeId: Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel: RecipeSearchViewModel = hiltViewModel()
@@ -59,9 +64,14 @@ fun RecipeSearchScreen(
         onDispose { }
     }
 
-    DisposableEffect(Unit) {
-        viewModel.onLaunch()
-        onDispose { viewModel.onDispose() }
+    LaunchedEffect(Unit) {
+        viewModel.externalEventsFlow
+            .onEach { event ->
+                when (event) {
+                    is RecipeSearchExternalEvent.OnRecipeClicked -> onRecipeClicked(event.recipeId)
+                }
+            }
+            .launchIn(this)
     }
 
     RecipeSearchScreenImpl(
@@ -69,6 +79,7 @@ fun RecipeSearchScreen(
         state = state,
         onSearchTextChanged = viewModel::onSearchTextChanged,
         onCaloriesSortClicked = viewModel::onCaloriesSortClicked,
+        onRecipeClicked = { viewModel.onRecipeClicked(it) },
     )
 
 }
@@ -78,6 +89,7 @@ private fun RecipeSearchScreenImpl(
     state: RecipeSearchScreenState,
     onSearchTextChanged: (String) -> Unit,
     onCaloriesSortClicked: () -> Unit,
+    onRecipeClicked: (recipeId: Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.padding(Padding.Quad)) {
@@ -146,7 +158,12 @@ private fun RecipeSearchScreenImpl(
                 state.lazyPagingItems?.get(index)?.let { itemState ->
                     RecipeSearchListItem(
                         modifier = Modifier
-                            .padding(all = Padding.Double),
+                            .padding(all = Padding.Double)
+                            .clickable(
+                                onClick = {
+                                    onRecipeClicked(itemState.recipeId)
+                                },
+                            ),
                         state = itemState,
                     )
                 }
@@ -178,6 +195,7 @@ private fun RecipeSearchScreenImplPreview() {
             ),
             onSearchTextChanged = { },
             onCaloriesSortClicked = { },
+            onRecipeClicked = { },
         )
     }
 }

@@ -39,6 +39,7 @@ dependencies {
     implementation(project(":shared:strings"))
     implementation(project(":shared:uikit"))
     implementation(project(":feature:recipesearch:presentation"))
+    implementation(project(":feature:recipedetails:presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

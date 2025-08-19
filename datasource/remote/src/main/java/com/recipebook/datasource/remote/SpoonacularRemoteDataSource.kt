@@ -1,10 +1,12 @@
 package com.recipebook.datasource.remote
 
+import com.recipebook.datasource.remote.model.SpoonacularRecipeInformation
 import com.recipebook.datasource.remote.model.SpoonacularRecipeResponse
 import com.recipebook.datasource.remote.model.SpoonacularRecipeSortDirection
 import com.recipebook.datasource.remote.model.SpoonacularRecipeSortOption
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface SpoonacularRemoteDataSource {
@@ -27,4 +29,11 @@ interface SpoonacularRemoteDataSource {
         @Query("sortDirection")
         sortDirection: SpoonacularRecipeSortDirection,
     ): SpoonacularRecipeResponse
+
+    @Headers("x-api-key: ${BuildConfig.SPOONACULAR_API_KEY}")
+    @GET("recipes/{id}/information")
+    suspend fun requestRecipeInformation(
+        @Path("id")
+        recipeId: Int,
+    ): SpoonacularRecipeInformation
 }

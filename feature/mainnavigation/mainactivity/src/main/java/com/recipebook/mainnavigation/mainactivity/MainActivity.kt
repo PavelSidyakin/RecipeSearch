@@ -11,7 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.recipebook.mainnavigation.NavigationDestination
+import com.recipebook.recipedetails.presentation.screen.RecipeDetailsScreen
 import com.recipebook.recipesearch.presentation.screen.RecipeSearchScreen
 import com.recipebook.uikit.theme.RecipeSearchTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +35,16 @@ internal class MainActivity : ComponentActivity() {
                         composable<NavigationDestination.RecipeSearch> {
                             RecipeSearchScreen(
                                 modifier = Modifier.fillMaxSize(),
+                                onRecipeClicked = { recipeId ->
+                                    navController.navigate(route = NavigationDestination.RecipeDetails(recipeId))
+                                }
+                            )
+                        }
+                        composable<NavigationDestination.RecipeDetails> { backStackEntry ->
+                            val destination = backStackEntry.toRoute<NavigationDestination.RecipeDetails>()
+                            RecipeDetailsScreen(
+                                modifier = Modifier.fillMaxSize(),
+                                recipeId = destination.recipeId,
                             )
                         }
                     }

@@ -7,4 +7,8 @@
 
     <string name="recipe_search_calories_desc">kcal ↑</string>
     <string name="recipe_search_calories_asc">kcal ↓</string>
+
+    <string name="recipe_details_ingredients_label">Ingredients:</string>
+    <string name="recipe_details_details">Details:</string>
+    <string name="recipe_details_source">Source:</string>
 </resources>
