@@ -3,9 +3,12 @@ package com.recipebook.recipesearch.data.impl
 import com.recipebook.datasource.remote.SpoonacularRemoteDataSource
 import com.recipebook.datasource.remote.model.SpoonacularRecipeBriefInfo
 import com.recipebook.datasource.remote.model.SpoonacularRecipeResponse
+import com.recipebook.datasource.remote.model.SpoonacularRecipeSortDirection
+import com.recipebook.datasource.remote.model.SpoonacularRecipeSortOption
 import com.recipebook.recipesearch.data.api.RecipeSearchRepository
 import com.recipebook.recipesearch.domain.model.RecipeBriefInfo
 import com.recipebook.recipesearch.domain.model.RecipesWithPagingInfo
+import com.recipebook.recipesearch.domain.model.SearchResultSortOption
 import javax.inject.Inject
 
 internal class RecipeSearchRepositoryImpl @Inject constructor(
@@ -14,7 +17,8 @@ internal class RecipeSearchRepositoryImpl @Inject constructor(
     override suspend fun requestRecipes(
         query: String,
         offset: Int,
-        number: Int
+        number: Int,
+        sortOption: SearchResultSortOption
     ): RecipesWithPagingInfo {
         return RecipesWithPagingInfo(
             recipes = List(number) { index ->
@@ -30,12 +34,15 @@ internal class RecipeSearchRepositoryImpl @Inject constructor(
             totalResults = 0,
         )
 
+        val (sortOption, sortDirection) = sortOption.toSpoonacularRecipeSortOptionAndSpoonacularRecipeSortDirection()
 
-//        return spoonacularRemoteDataSource.requestRecipes(
-//            query = query,
-//            offset = offset,
-//            number = number
-//        ).toRecipesWithPagingInfo()
+        return spoonacularRemoteDataSource.requestRecipes(
+            query = query,
+            offset = offset,
+            number = number,
+            sortOption = sortOption,
+            sortDirection = sortDirection,
+        ).toRecipesWithPagingInfo()
     }
 
     private fun SpoonacularRecipeResponse.toRecipesWithPagingInfo(): RecipesWithPagingInfo {
@@ -54,5 +61,16 @@ internal class RecipeSearchRepositoryImpl @Inject constructor(
             title = title,
             summary = summary,
         )
+    }
+
+    private fun SearchResultSortOption.toSpoonacularRecipeSortOptionAndSpoonacularRecipeSortDirection(
+
+    ): Pair<SpoonacularRecipeSortOption, SpoonacularRecipeSortDirection> {
+        return when (this) {
+            SearchResultSortOption.CALORIES_ASCENDING -> SpoonacularRecipeSortOption.CALORIES to
+                    SpoonacularRecipeSortDirection.ASCENDING
+            SearchResultSortOption.CALORIES_DESCENDING -> SpoonacularRecipeSortOption.CALORIES to
+                    SpoonacularRecipeSortDirection.DESCENDING
+        }
     }
 }

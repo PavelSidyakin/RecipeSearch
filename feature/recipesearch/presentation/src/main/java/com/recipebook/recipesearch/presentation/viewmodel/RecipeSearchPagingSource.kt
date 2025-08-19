@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.recipebook.logging.LogLevel
 import com.recipebook.logging.debugLog
 import com.recipebook.recipesearch.domain.api.RecipeSearchInteractor
+import com.recipebook.recipesearch.domain.model.SearchResultSortOption
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -14,6 +15,7 @@ private const val LOG_TAG = "RecipeSearchPagingSource"
 
 internal class RecipeSearchPagingSource @AssistedInject constructor(
     @Assisted private val query: String,
+    @Assisted private val sortOption: SearchResultSortOption,
     private val recipeSearchInteractor: RecipeSearchInteractor,
 ) : PagingSource<Int, RecipeSearchListItemState>() {
 
@@ -27,6 +29,7 @@ internal class RecipeSearchPagingSource @AssistedInject constructor(
                 query = query,
                 offset = offset,
                 number = RECIPE_SEARCH_PAGE_SIZE,
+                sortOption = sortOption,
             )
             val nextKey = when {
                 response.recipes.isEmpty() -> null
@@ -58,6 +61,6 @@ internal class RecipeSearchPagingSource @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(query: String): RecipeSearchPagingSource
+        fun create(query: String, sortOption: SearchResultSortOption): RecipeSearchPagingSource
     }
 }

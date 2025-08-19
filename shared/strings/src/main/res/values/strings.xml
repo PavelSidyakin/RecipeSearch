@@ -3,5 +3,8 @@
     <string name="app_name">Recipe Book</string>
 
     <string name="recipe_search_title">Search a recipe</string>
-    <string name="recipe_search_hilt">Type name or ingredient…</string>
+    <string name="recipe_search_hint">Type name or ingredient…</string>
+
+    <string name="recipe_search_calories_desc">kcal ↑</string>
+    <string name="recipe_search_calories_asc">kcal ↓</string>
 </resources>

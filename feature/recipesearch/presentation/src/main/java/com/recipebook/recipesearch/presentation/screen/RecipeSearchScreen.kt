@@ -1,6 +1,7 @@
 package com.recipebook.recipesearch.presentation.screen
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -29,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.recipebook.recipesearch.domain.model.SearchResultSortOption
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchListItemState
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchScreenState
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchViewModel
@@ -65,7 +67,8 @@ fun RecipeSearchScreen(
     RecipeSearchScreenImpl(
         modifier = modifier,
         state = state,
-        onSearchTextChanged = viewModel::onSearchTextChanged
+        onSearchTextChanged = viewModel::onSearchTextChanged,
+        onCaloriesSortClicked = viewModel::onCaloriesSortClicked,
     )
 
 }
@@ -74,6 +77,7 @@ fun RecipeSearchScreen(
 private fun RecipeSearchScreenImpl(
     state: RecipeSearchScreenState,
     onSearchTextChanged: (String) -> Unit,
+    onCaloriesSortClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.padding(Padding.Quad)) {
@@ -94,24 +98,41 @@ private fun RecipeSearchScreenImpl(
                 contentDescription = null,
             )
         }
-        var searchText by remember { mutableStateOf(state.searchText) }
-        DisposableEffect(searchText) {
-            onSearchTextChanged(searchText)
-            onDispose { }
-        }
 
-        OutlinedTextField(
-            modifier = Modifier.padding(top = Padding.Quad),
-            value = searchText,
-            onValueChange = { searchText = it },
-            singleLine = true,
-            placeholder = {
-                Text(
-                    text = stringResource(R.string.recipe_search_hilt),
-                    style = MaterialTheme.typography.labelMedium,
-                )
-            },
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            var searchText by remember { mutableStateOf(state.searchText) }
+            DisposableEffect(searchText) {
+                onSearchTextChanged(searchText)
+                onDispose { }
+            }
+
+            OutlinedTextField(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(top = Padding.Quad),
+                value = searchText,
+                onValueChange = { searchText = it },
+                singleLine = true,
+                placeholder = {
+                    Text(
+                        text = stringResource(R.string.recipe_search_hint),
+                        style = MaterialTheme.typography.labelMedium,
+                    )
+                },
+            )
+            Text(
+                modifier = Modifier
+                    .padding(start = Padding.Double)
+                    .clickable(
+                        onClick = onCaloriesSortClicked,
+                    ),
+                text = state.sortOption.toText(),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
@@ -135,6 +156,14 @@ private fun RecipeSearchScreenImpl(
 }
 
 @Composable
+private fun SearchResultSortOption.toText(): String {
+    return when (this) {
+        SearchResultSortOption.CALORIES_ASCENDING -> stringResource(R.string.recipe_search_calories_asc)
+        SearchResultSortOption.CALORIES_DESCENDING -> stringResource(R.string.recipe_search_calories_desc)
+    }
+}
+
+@Composable
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, backgroundColor = 0xFF000000, showBackground = true)
 @Preview(device = Devices.TABLET)
@@ -145,8 +174,10 @@ private fun RecipeSearchScreenImplPreview() {
             state = RecipeSearchScreenState(
                 searchText = "",
                 lazyPagingItems = null,
+                sortOption = SearchResultSortOption.CALORIES_ASCENDING,
             ),
             onSearchTextChanged = { },
+            onCaloriesSortClicked = { },
         )
     }
 }
