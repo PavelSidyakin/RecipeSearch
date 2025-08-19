@@ -49,6 +49,14 @@ fun RecipeSearchScreen(
     val lazyPagingItems: LazyPagingItems<RecipeSearchListItemState> = viewModel.pagingListFlow
         .collectAsLazyPagingItems()
 
+    // Workaround over Paging 3 library.
+    // We can't get LazyPagingItems other than calling composable function collectAsLazyPagingItems()
+    // To have consistency is the state's updates via VM, call VM here and let VM update the state
+    DisposableEffect(lazyPagingItems) {
+        viewModel.onLazyPagingItemsReady(lazyPagingItems)
+        onDispose { }
+    }
+
     DisposableEffect(Unit) {
         viewModel.onLaunch()
         onDispose { viewModel.onDispose() }
@@ -56,7 +64,7 @@ fun RecipeSearchScreen(
 
     RecipeSearchScreenImpl(
         modifier = modifier,
-        state = state.copy(lazyPagingItems = lazyPagingItems),
+        state = state,
         onSearchTextChanged = viewModel::onSearchTextChanged
     )
 
@@ -104,6 +112,7 @@ private fun RecipeSearchScreenImpl(
                 )
             },
         )
+
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(all = Padding.Double),
@@ -112,7 +121,6 @@ private fun RecipeSearchScreenImpl(
         ) {
             items(
                 count = state.lazyPagingItems?.itemCount ?: 0,
-                key = { state.lazyPagingItems?.get(it)?.recipeId ?: -1 },
             ) { index ->
                 state.lazyPagingItems?.get(index)?.let { itemState ->
                     RecipeSearchListItem(

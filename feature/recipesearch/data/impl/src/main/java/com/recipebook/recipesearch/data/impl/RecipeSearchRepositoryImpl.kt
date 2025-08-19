@@ -16,11 +16,26 @@ internal class RecipeSearchRepositoryImpl @Inject constructor(
         offset: Int,
         number: Int
     ): RecipesWithPagingInfo {
-        return spoonacularRemoteDataSource.requestRecipes(
-            query = query,
-            offset = offset,
-            number = number
-        ).toRecipesWithPagingInfo()
+        return RecipesWithPagingInfo(
+            recipes = List(number) { index ->
+                RecipeBriefInfo(
+                    id = index,
+                    imageUrl = "https://img.spoonacular.com/recipes/651715-312x231.jpg",
+                    title = "Mexican Three Cheese Dip",
+                    summary = "You can never have too many Mexican recipes, so give Mexican Three Cheese Dip a try. For <b>\$3.93 per serving</b>, this recipe",
+                )
+            },
+            offset = offset + number,
+            number = number,
+            totalResults = 0,
+        )
+
+
+//        return spoonacularRemoteDataSource.requestRecipes(
+//            query = query,
+//            offset = offset,
+//            number = number
+//        ).toRecipesWithPagingInfo()
     }
 
     private fun SpoonacularRecipeResponse.toRecipesWithPagingInfo(): RecipesWithPagingInfo {

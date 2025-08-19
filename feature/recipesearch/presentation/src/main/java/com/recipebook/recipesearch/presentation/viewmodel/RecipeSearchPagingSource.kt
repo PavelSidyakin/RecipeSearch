@@ -9,7 +9,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
-internal const val RECIPE_SEARCH_PAGE_SIZE = 10
+internal const val RECIPE_SEARCH_PAGE_SIZE = 50
 private const val LOG_TAG = "RecipeSearchPagingSource"
 
 internal class RecipeSearchPagingSource @AssistedInject constructor(
@@ -17,21 +17,21 @@ internal class RecipeSearchPagingSource @AssistedInject constructor(
     private val recipeSearchInteractor: RecipeSearchInteractor,
 ) : PagingSource<Int, RecipeSearchListItemState>() {
 
-    override fun getRefreshKey(state: PagingState<Int, RecipeSearchListItemState>): Int? {
-        return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(RECIPE_SEARCH_PAGE_SIZE)
-                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(RECIPE_SEARCH_PAGE_SIZE)
-        }
-    }
+    override fun getRefreshKey(state: PagingState<Int, RecipeSearchListItemState>): Int? = null
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RecipeSearchListItemState> {
+        val offset = params.key ?: 0
+
         return try {
-            val page = params.key ?: 0
             val response = recipeSearchInteractor.requestRecipes(
                 query = query,
-                offset = page,
+                offset = offset,
                 number = RECIPE_SEARCH_PAGE_SIZE,
             )
+            val nextKey = when {
+                response.recipes.isEmpty() -> null
+                else -> offset + response.recipes.size
+            }
 
             LoadResult.Page(
                 data = response.recipes.map { recipe ->
@@ -42,8 +42,8 @@ internal class RecipeSearchPagingSource @AssistedInject constructor(
                         description = recipe.summary,
                     )
                 },
-                prevKey = if (page == 0) null else page - RECIPE_SEARCH_PAGE_SIZE,
-                nextKey = if (response.recipes.isEmpty()) null else page + RECIPE_SEARCH_PAGE_SIZE,
+                prevKey = null,
+                nextKey = nextKey,
             )
         } catch (error: Exception) {
             debugLog {

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
@@ -66,5 +67,9 @@ internal class RecipeSearchViewModel @Inject constructor(
     fun onSearchTextChanged(text: String) {
         stateFlowImpl.update { it.copy(searchText = text) }
         searchTextFlow.tryEmit(text)
+    }
+
+    fun onLazyPagingItemsReady(lazyPagingItems: LazyPagingItems<RecipeSearchListItemState>) {
+        stateFlowImpl.update { it.copy(lazyPagingItems = lazyPagingItems) }
     }
 }
