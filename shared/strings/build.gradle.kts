@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.recipesearch.strings"
+    namespace = "com.recipebook.strings"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {

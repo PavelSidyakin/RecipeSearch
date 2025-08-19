@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -10,12 +11,20 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/datasource" />
+            <option value="$PROJECT_DIR$/datasource/remote" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/mainnavigation" />
             <option value="$PROJECT_DIR$/feature/mainnavigation/mainactivity" />
-            <option value="$PROJECT_DIR$/feature/mainnavigation/navigationdestination" />
             <option value="$PROJECT_DIR$/feature/recipesearch" />
-            <option value="$PROJECT_DIR$/feature/recipesearch/recipesearchpresentation" />
+            <option value="$PROJECT_DIR$/feature/recipesearch/data" />
+            <option value="$PROJECT_DIR$/feature/recipesearch/data/api" />
+            <option value="$PROJECT_DIR$/feature/recipesearch/data/impl" />
+            <option value="$PROJECT_DIR$/feature/recipesearch/domain" />
+            <option value="$PROJECT_DIR$/feature/recipesearch/domain/api" />
+            <option value="$PROJECT_DIR$/feature/recipesearch/domain/impl" />
+            <option value="$PROJECT_DIR$/feature/recipesearch/domain/models" />
+            <option value="$PROJECT_DIR$/feature/recipesearch/presentation" />
             <option value="$PROJECT_DIR$/shared" />
             <option value="$PROJECT_DIR$/shared/logging" />
             <option value="$PROJECT_DIR$/shared/strings" />

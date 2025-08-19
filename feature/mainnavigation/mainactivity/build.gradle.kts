@@ -4,10 +4,11 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.serialization)
 }
 
 android {
-    namespace = "com.example.recipesearch.mainnavigation.mainactivity"
+    namespace = "com.recipebook.mainnavigation.mainactivity"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -37,12 +38,10 @@ android {
 dependencies {
     implementation(project(":shared:strings"))
     implementation(project(":shared:uikit"))
-    implementation(project(":feature:mainnavigation:navigationdestination"))
-    implementation(project(":feature:recipesearch:recipesearchpresentation"))
+    implementation(project(":feature:recipesearch:presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))

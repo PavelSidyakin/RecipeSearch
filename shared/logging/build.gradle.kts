@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.recipesearch.logging"
+    namespace = "com.recipebook.logging"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
