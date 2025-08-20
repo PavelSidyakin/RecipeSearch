@@ -42,6 +42,4 @@ dependencies {
     implementation(libs.serialization)
 
     ksp(libs.hilt.compiler)
-
-    testImplementation(libs.junit)
 }

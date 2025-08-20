@@ -40,6 +40,7 @@ android {
 dependencies {
 
     implementation(project(":shared:strings"))
+    implementation(project(":shared:logging"))
     implementation(project(":feature:mainnavigation:mainactivity"))
     implementation(project(":datasource:local"))
     implementation(project(":datasource:remote"))

@@ -4,6 +4,11 @@ package com.recipebook.logging
 // Just for simplification, use android.util.Log
 import android.util.Log
 
+object LoggingConfigurator {
+    // To ignore logs in unit tests
+    var enableLogging = false
+}
+
 private fun printLog(tag: String, message: String, level: LogLevel, throwable: Throwable?) {
     when (level) {
         LogLevel.VERBOSE -> Log.v(tag, message, throwable)
@@ -23,7 +28,7 @@ const val LOGGING_ENABLED = BuildConfig.BUILD_TYPE == "debug"
 
 inline fun debugLog(block: LogBuilder.() -> Unit) {
     // Will be cut during compilation in the release build, including StringBuilder
-    if (LOGGING_ENABLED) {
+    if (LOGGING_ENABLED && LoggingConfigurator.enableLogging) {
         doLog(
             LogBuilderImpl()
                 .apply { this.block() }
