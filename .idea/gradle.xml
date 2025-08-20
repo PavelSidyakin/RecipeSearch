@@ -35,6 +35,15 @@
             <option value="$PROJECT_DIR$/feature/recipesearch/domain/impl" />
             <option value="$PROJECT_DIR$/feature/recipesearch/models" />
             <option value="$PROJECT_DIR$/feature/recipesearch/presentation" />
+            <option value="$PROJECT_DIR$/feature/viewedrecipes" />
+            <option value="$PROJECT_DIR$/feature/viewedrecipes/data" />
+            <option value="$PROJECT_DIR$/feature/viewedrecipes/data/api" />
+            <option value="$PROJECT_DIR$/feature/viewedrecipes/data/impl" />
+            <option value="$PROJECT_DIR$/feature/viewedrecipes/domain" />
+            <option value="$PROJECT_DIR$/feature/viewedrecipes/domain/api" />
+            <option value="$PROJECT_DIR$/feature/viewedrecipes/domain/impl" />
+            <option value="$PROJECT_DIR$/feature/viewedrecipes/models" />
+            <option value="$PROJECT_DIR$/feature/viewedrecipes/presentation" />
             <option value="$PROJECT_DIR$/shared" />
             <option value="$PROJECT_DIR$/shared/logging" />
             <option value="$PROJECT_DIR$/shared/strings" />

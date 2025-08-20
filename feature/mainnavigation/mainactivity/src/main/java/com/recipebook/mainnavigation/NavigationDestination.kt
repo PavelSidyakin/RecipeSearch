@@ -8,4 +8,7 @@ internal sealed interface NavigationDestination {
 
     @Serializable
     data class RecipeDetails(val recipeId: Int) : NavigationDestination
+
+    @Serializable
+    data object ViewedRecipes : NavigationDestination
 }

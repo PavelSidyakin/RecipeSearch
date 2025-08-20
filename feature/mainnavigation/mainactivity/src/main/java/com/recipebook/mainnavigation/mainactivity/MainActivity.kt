@@ -16,6 +16,7 @@ import com.recipebook.mainnavigation.NavigationDestination
 import com.recipebook.recipedetails.presentation.screen.RecipeDetailsScreen
 import com.recipebook.recipesearch.presentation.screen.RecipeSearchScreen
 import com.recipebook.uikit.theme.RecipeSearchTheme
+import com.recipebook.viewedrecipes.presentation.screen.ViewedRecipesScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,7 +38,10 @@ internal class MainActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxSize(),
                                 onRecipeClicked = { recipeId ->
                                     navController.navigate(route = NavigationDestination.RecipeDetails(recipeId))
-                                }
+                                },
+                                onViewedRecipesClicked = {
+                                    navController.navigate(route = NavigationDestination.ViewedRecipes)
+                                },
                             )
                         }
                         composable<NavigationDestination.RecipeDetails> { backStackEntry ->
@@ -45,6 +49,13 @@ internal class MainActivity : ComponentActivity() {
                             RecipeDetailsScreen(
                                 modifier = Modifier.fillMaxSize(),
                                 recipeId = destination.recipeId,
+                            )
+                        }
+                        composable<NavigationDestination.ViewedRecipes> {
+                            ViewedRecipesScreen(
+                                onRecipeClicked = { recipeId ->
+                                    navController.navigate(route = NavigationDestination.RecipeDetails(recipeId))
+                                },
                             )
                         }
                     }

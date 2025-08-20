@@ -12,6 +12,9 @@ interface ViewedRecipeDao {
     @Query("SELECT * FROM t_viewed_recipe")
     fun requestViewedRecipes(): List<ViewedRecipeEntity>
 
+    @Query("SELECT * FROM t_viewed_recipe WHERE f_isFavorite == 1")
+    fun requestFavoriteViewedRecipes(): List<ViewedRecipeEntity>
+
     @Query("SELECT * FROM t_viewed_recipe WHERE f_recipeId == :recipeId")
     fun requestViewedRecipe(
         recipeId: Int,

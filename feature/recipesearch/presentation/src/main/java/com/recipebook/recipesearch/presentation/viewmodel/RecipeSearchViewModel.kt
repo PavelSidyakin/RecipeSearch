@@ -11,7 +11,6 @@ import com.recipebook.recipesearch.presentation.model.RecipeSearchListItemState
 import com.recipebook.recipesearch.presentation.model.RecipeSearchScreenState
 import com.recipebook.recipesearch.presentation.model.RecipeSearchSortOption
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,7 +28,6 @@ import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
 private const val SEARCH_DEBOUNCE_TIMEOUT_MS = 1000L
-private const val LOG_TAG = "RecipeSearchViewModel"
 
 @HiltViewModel
 internal class RecipeSearchViewModel @Inject constructor(
@@ -94,6 +92,12 @@ internal class RecipeSearchViewModel @Inject constructor(
     fun onRecipeClicked(recipeId: Int) {
         viewModelScope.launch {
             externalEventsFlowImpl.emit(RecipeSearchExternalEvent.OnRecipeClicked(recipeId))
+        }
+    }
+
+    fun onViewedRecipesClicked() {
+        viewModelScope.launch {
+            externalEventsFlowImpl.emit(RecipeSearchExternalEvent.OnViewedRecipesClicked)
         }
     }
 }

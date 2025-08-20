@@ -15,4 +15,6 @@
     <string name="recipe_details_details">Details:</string>
     <string name="recipe_details_source">Source:</string>
     <string name="recipe_details_price">Price: %.2f</string>
+
+    <string name="viewed_recipe_only_favorites_filter">Show favorites only</string>>
 </resources>

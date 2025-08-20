@@ -51,6 +51,12 @@ dependencies {
     implementation(project(":feature:recipedetails:data:api"))
     implementation(project(":feature:recipedetails:domain:impl"))
     implementation(project(":feature:recipedetails:data:impl"))
+    implementation(project(":feature:viewedrecipes:presentation"))
+    implementation(project(":feature:viewedrecipes:domain:api"))
+    implementation(project(":feature:viewedrecipes:domain:impl"))
+    implementation(project(":feature:viewedrecipes:data:api"))
+    implementation(project(":feature:viewedrecipes:data:impl"))
+    implementation(project(":feature:viewedrecipes:models"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

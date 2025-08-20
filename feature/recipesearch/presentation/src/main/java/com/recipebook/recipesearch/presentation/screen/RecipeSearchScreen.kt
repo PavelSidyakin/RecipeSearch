@@ -52,6 +52,7 @@ import java.io.IOException
 @Composable
 fun RecipeSearchScreen(
     onRecipeClicked: (recipeId: Int) -> Unit,
+    onViewedRecipesClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel: RecipeSearchViewModel = hiltViewModel()
@@ -76,6 +77,7 @@ fun RecipeSearchScreen(
             .onEach { event ->
                 when (event) {
                     is RecipeSearchExternalEvent.OnRecipeClicked -> onRecipeClicked(event.recipeId)
+                    RecipeSearchExternalEvent.OnViewedRecipesClicked -> onViewedRecipesClicked()
                 }
             }
             .launchIn(this)
@@ -86,7 +88,8 @@ fun RecipeSearchScreen(
         state = state,
         onSearchTextChanged = viewModel::onSearchTextChanged,
         onCaloriesSortClicked = viewModel::onCaloriesSortClicked,
-        onRecipeClicked = { viewModel.onRecipeClicked(it) },
+        onRecipeClicked = viewModel::onRecipeClicked,
+        onViewedRecipesClicked = viewModel::onViewedRecipesClicked,
     )
 
 }
@@ -97,6 +100,7 @@ private fun RecipeSearchScreenImpl(
     onSearchTextChanged: (String) -> Unit,
     onCaloriesSortClicked: () -> Unit,
     onRecipeClicked: (recipeId: Int) -> Unit,
+    onViewedRecipesClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.padding(Padding.Quad)) {
@@ -112,6 +116,10 @@ private fun RecipeSearchScreenImpl(
                 color = MaterialTheme.colorScheme.onSurface,
             )
             Icon(
+                modifier = Modifier
+                    .clickable(
+                        onClick = onViewedRecipesClicked,
+                    ),
                 imageVector = RsIcon.History,
                 tint = MaterialTheme.colorScheme.onSurface,
                 contentDescription = null,
@@ -137,7 +145,7 @@ private fun RecipeSearchScreenImpl(
                 placeholder = {
                     Text(
                         text = stringResource(R.string.recipe_search_hint),
-                        style = MaterialTheme.typography.labelMedium,
+                        style = MaterialTheme.typography.bodyLarge,
                     )
                 },
             )
@@ -233,6 +241,7 @@ private fun RecipeSearchScreenImplPreview() {
             onSearchTextChanged = { },
             onCaloriesSortClicked = { },
             onRecipeClicked = { },
+            onViewedRecipesClicked = { },
         )
     }
 }
