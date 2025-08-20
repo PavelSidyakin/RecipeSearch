@@ -10,7 +10,6 @@ import com.recipebook.recipesearch.domain.model.RecipeBriefInfo
 import com.recipebook.recipesearch.domain.model.RecipesWithPagingInfo
 import com.recipebook.recipesearch.domain.model.SearchResultSortOption
 import javax.inject.Inject
-import kotlin.random.Random
 
 internal class RecipeSearchRepositoryImpl @Inject constructor(
     private val spoonacularRemoteDataSource: SpoonacularRemoteDataSource,
@@ -22,22 +21,22 @@ internal class RecipeSearchRepositoryImpl @Inject constructor(
         number: Int,
         sortOption: SearchResultSortOption
     ): RecipesWithPagingInfo {
-        return RecipesWithPagingInfo(
-            recipes = List(number) { index ->
-                RecipeBriefInfo(
-                    id = index,
-                    imageUrl = "https://img.spoonacular.com/recipes/651715-312x231.jpg",
-                    title = "Mexican Three Cheese Dip",
-                    summary = "You can never have too many Mexican recipes, so give Mexican Three Cheese Dip a try. For <b>\$3.93 per serving</b>, this recipe",
-                    price = Random(index).nextFloat(),
-                )
-            },
-            offset = offset + number,
-            number = number,
-            totalResults = 0,
-        )
+//        return RecipesWithPagingInfo(
+//            recipes = List(number) { index ->
+//                RecipeBriefInfo(
+//                    id = index,
+//                    imageUrl = "https://img.spoonacular.com/recipes/651715-312x231.jpg",
+//                    title = "Mexican Three Cheese Dip",
+//                    summary = "You can never have too many Mexican recipes, so give Mexican Three Cheese Dip a try. For <b>\$3.93 per serving</b>, this recipe",
+//                    price = 55.33f,
+//                )
+//            },
+//            offset = offset + number,
+//            number = number,
+//            totalResults = 0,
+//        )
 
-        val (sortOption, sortDirection) = sortOption.toSpoonacularRecipeSortOptionAndSpoonacularRecipeSortDirection()
+        val (sortOption, sortDirection) = sortOption.toSpoonacularRecipeSortOptionAndSortDirection()
 
         return spoonacularRemoteDataSource.requestRecipes(
             query = query,
@@ -67,8 +66,7 @@ internal class RecipeSearchRepositoryImpl @Inject constructor(
         )
     }
 
-    private fun SearchResultSortOption.toSpoonacularRecipeSortOptionAndSpoonacularRecipeSortDirection(
-
+    private fun SearchResultSortOption.toSpoonacularRecipeSortOptionAndSortDirection(
     ): Pair<SpoonacularRecipeSortOption, SpoonacularRecipeSortDirection> {
         return when (this) {
             SearchResultSortOption.CALORIES_ASCENDING -> SpoonacularRecipeSortOption.CALORIES to

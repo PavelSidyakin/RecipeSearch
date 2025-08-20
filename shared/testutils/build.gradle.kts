@@ -1,12 +1,10 @@
 plugins {
-    alias(libs.plugins.ksp)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "com.recipebook.viewedrecipes.data.impl"
+    namespace = "com.recipebook.utils"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -28,28 +26,12 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-}
-
-afterEvaluate {
-    tasks.withType<Test> {
-        useJUnitPlatform()
+    buildFeatures {
+        buildConfig = true
     }
 }
 
 dependencies {
-    implementation(project(":feature:viewedrecipes:data:api"))
-    implementation(project(":datasource:local"))
-    implementation(project(":datasource:remote"))
+    implementation(libs.androidx.core.ktx)
     implementation(project(":shared:utils"))
-
-    implementation(libs.hilt)
-
-    ksp(libs.hilt.compiler)
-
-    testImplementation(project(":shared:testutils"))
-    testImplementation(libs.testing.junit.jupiter)
-    testImplementation(libs.testing.junit.jupiter.params)
-    testImplementation(libs.testing.mockK)
-    testImplementation(libs.testing.coroutines)
-    testRuntimeOnly(libs.testing.junit.platformlauncher)
 }
