@@ -32,6 +32,7 @@ internal class RecipeDetailsViewModel @AssistedInject constructor(
                     instructions = recipeDetails.instructions,
                     sourceWebsiteLink = recipeDetails.sourceWebsiteLink,
                     isFavorite = recipeDetails.isFavorite,
+                    price = recipeDetails.price,
                 )
             }
         }

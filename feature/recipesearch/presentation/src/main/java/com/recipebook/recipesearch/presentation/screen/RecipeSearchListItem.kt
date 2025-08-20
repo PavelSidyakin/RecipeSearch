@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.fromHtml
@@ -24,6 +25,7 @@ import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchListItemSt
 import com.recipebook.uikit.size.Padding
 import com.recipebook.uikit.theme.RecipeSearchTheme
 import com.recipebook.uikit.widgets.RemoteImage
+import com.recipebook.strings.R
 
 private val RecipeImageSize = 64.dp
 
@@ -55,6 +57,12 @@ internal fun RecipeSearchListItem(
                 style = MaterialTheme.typography.titleLarge,
                 maxLines = NAME_MAX_LINES,
             )
+            Text(
+                modifier = Modifier.padding(vertical = Padding.Double),
+                text = stringResource(R.string.recipe_search_price, state.price),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
             TextWithMaxLines(
                 text = state.description,
                 style = MaterialTheme.typography.bodyMedium,
@@ -75,7 +83,7 @@ private fun TextWithMaxLines(
         Text(
             style = style,
             maxLines = maxLines,
-            text = "\n".repeat(DESCRIPTION_MAX_LINES)
+            text = "\n".repeat(DESCRIPTION_MAX_LINES),
         )
         Text(
             text = AnnotatedString.fromHtml(text),
@@ -83,6 +91,7 @@ private fun TextWithMaxLines(
             maxLines = maxLines,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colorScheme.onSurface,
         )
     }
 }
@@ -100,6 +109,7 @@ private fun RecipeSearchListItemPreview() {
                 imageUrl = "https://xxxx",
                 name = "Name Name Name",
                 description = "Description Description Description Description",
+                price = 80.5f,
             )
         )
     }

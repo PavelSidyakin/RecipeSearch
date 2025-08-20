@@ -4,11 +4,13 @@
 
     <string name="recipe_search_title">Search a recipe</string>
     <string name="recipe_search_hint">Type name or ingredient…</string>
+    <string name="recipe_search_price">Price: %.2f</string>
 
-    <string name="recipe_search_calories_desc">kcal ↑</string>
-    <string name="recipe_search_calories_asc">kcal ↓</string>
+    <string name="recipe_search_price_desc">price ↑</string>
+    <string name="recipe_search_price_asc">price ↓</string>
 
     <string name="recipe_details_ingredients_label">Ingredients:</string>
     <string name="recipe_details_details">Details:</string>
     <string name="recipe_details_source">Source:</string>
+    <string name="recipe_details_price">Price: %.2f</string>
 </resources>

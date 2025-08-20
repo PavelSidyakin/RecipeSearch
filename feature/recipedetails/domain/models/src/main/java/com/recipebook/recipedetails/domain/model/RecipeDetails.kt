@@ -8,4 +8,5 @@ data class RecipeDetails(
     val instructions: String,
     val sourceWebsiteLink: String,
     val isFavorite: Boolean,
+    val price: Float,
 )

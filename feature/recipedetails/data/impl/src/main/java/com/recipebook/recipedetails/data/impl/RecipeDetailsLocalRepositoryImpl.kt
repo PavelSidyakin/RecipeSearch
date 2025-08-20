@@ -28,6 +28,7 @@ internal class RecipeDetailsLocalRepositoryImpl @Inject constructor(
             instructions = instructions,
             sourceWebsiteLink = sourceWebsiteLink,
             isFavorite = isFavorite,
+            price = price,
         )
     }
 
@@ -40,6 +41,7 @@ internal class RecipeDetailsLocalRepositoryImpl @Inject constructor(
             instructions = instructions,
             sourceWebsiteLink = sourceWebsiteLink,
             isFavorite = isFavorite,
+            price = price,
         )
     }
 }

@@ -15,7 +15,7 @@ private const val LOG_TAG = "RecipeSearchPagingSource"
 
 internal class RecipeSearchPagingSource @AssistedInject constructor(
     @Assisted private val query: String,
-    @Assisted private val sortOption: SearchResultSortOption,
+    @Assisted private val sortOption: RecipeSearchSortOption,
     private val recipeSearchInteractor: RecipeSearchInteractor,
 ) : PagingSource<Int, RecipeSearchListItemState>() {
 
@@ -29,7 +29,10 @@ internal class RecipeSearchPagingSource @AssistedInject constructor(
                 query = query,
                 offset = offset,
                 number = RECIPE_SEARCH_PAGE_SIZE,
-                sortOption = sortOption,
+                sortOption = when (sortOption) {
+                    RecipeSearchSortOption.PRICE_ASCENDING -> SearchResultSortOption.PRICE_ASCENDING
+                    RecipeSearchSortOption.PRICE_DESCENDING -> SearchResultSortOption.PRICE_DESCENDING
+                },
             )
             val nextKey = when {
                 response.recipes.isEmpty() -> null
@@ -43,6 +46,7 @@ internal class RecipeSearchPagingSource @AssistedInject constructor(
                         imageUrl = recipe.imageUrl,
                         name = recipe.title,
                         description = recipe.summary,
+                        price = recipe.price,
                     )
                 },
                 prevKey = null,
@@ -61,6 +65,6 @@ internal class RecipeSearchPagingSource @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(query: String, sortOption: SearchResultSortOption): RecipeSearchPagingSource
+        fun create(query: String, sortOption: RecipeSearchSortOption): RecipeSearchPagingSource
     }
 }

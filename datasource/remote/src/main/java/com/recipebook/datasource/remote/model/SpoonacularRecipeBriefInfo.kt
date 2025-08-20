@@ -18,4 +18,7 @@ data class SpoonacularRecipeBriefInfo(
 
     @SerialName("summary")
     val summary: String,
+
+    @SerialName("pricePerServing")
+    val pricePerServing: Float,
 )

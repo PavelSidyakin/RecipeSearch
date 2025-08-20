@@ -90,6 +90,14 @@ private fun RecipeDetailsScreenImpl(
         }
         item {
             Text(
+                text = stringResource(R.string.recipe_details_price, state.price),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+                textAlign = TextAlign.Start,
+            )
+        }
+        item {
+            Text(
                 text = stringResource(R.string.recipe_details_ingredients_label),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface,
@@ -188,6 +196,7 @@ private fun RecipeDetailsScreenImplPreview() {
                 sourceWebsiteLink = "http://fullbellysisters.blogspot.com/2012/06/pasta-with-gar" +
                         "lic-scallions-cauliflower.html",
                 isFavorite = false,
+                price = 80.5f,
             ),
             onFavoriteClicked = { },
         )

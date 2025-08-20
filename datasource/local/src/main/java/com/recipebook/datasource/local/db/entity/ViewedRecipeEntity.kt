@@ -27,4 +27,7 @@ data class ViewedRecipeEntity(
 
     @ColumnInfo(name = "f_isFavorite")
     val isFavorite: Boolean,
+
+    @ColumnInfo(name = "f_price")
+    val price: Float,
 )

@@ -5,4 +5,5 @@ internal data class RecipeSearchListItemState(
     val imageUrl: String,
     val name: String,
     val description: String,
+    val price: Float,
 )

@@ -5,4 +5,5 @@ data class RecipeBriefInfo(
     val imageUrl: String,
     val title: String,
     val summary: String,
+    val price: Float,
 )

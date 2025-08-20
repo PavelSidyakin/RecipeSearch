@@ -7,7 +7,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.compose.LazyPagingItems
-import com.recipebook.recipesearch.domain.model.SearchResultSortOption
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -34,7 +33,7 @@ internal class RecipeSearchViewModel @Inject constructor(
 ) : ViewModel() {
     private val stateFlowImpl = MutableStateFlow(RecipeSearchScreenState.initialState)
     private val searchTextFlow = MutableStateFlow("")
-    private val sortOptionFlow = MutableStateFlow(SearchResultSortOption.CALORIES_ASCENDING)
+    private val sortOptionFlow = MutableStateFlow(RecipeSearchSortOption.PRICE_DESCENDING)
     private val pagingListFlowImpl = MutableSharedFlow<PagingData<RecipeSearchListItemState>>(replay = 1)
 
     private val externalEventsFlowImpl = MutableSharedFlow<RecipeSearchExternalEvent>()
@@ -79,8 +78,8 @@ internal class RecipeSearchViewModel @Inject constructor(
         stateFlowImpl.update { currentState ->
             currentState.copy(
                 sortOption = when (currentState.sortOption) {
-                    SearchResultSortOption.CALORIES_ASCENDING -> SearchResultSortOption.CALORIES_DESCENDING
-                    SearchResultSortOption.CALORIES_DESCENDING -> SearchResultSortOption.CALORIES_ASCENDING
+                    RecipeSearchSortOption.PRICE_DESCENDING -> RecipeSearchSortOption.PRICE_ASCENDING
+                    RecipeSearchSortOption.PRICE_ASCENDING -> RecipeSearchSortOption.PRICE_DESCENDING
                 }.also { sortOptionFlow.tryEmit(it) },
             )
         }

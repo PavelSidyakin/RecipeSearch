@@ -20,20 +20,21 @@ internal class RecipeSearchRepositoryImpl @Inject constructor(
         number: Int,
         sortOption: SearchResultSortOption
     ): RecipesWithPagingInfo {
-        return RecipesWithPagingInfo(
-            recipes = List(number) { index ->
-                RecipeBriefInfo(
-                    id = index,
-                    imageUrl = "https://img.spoonacular.com/recipes/651715-312x231.jpg",
-                    title = "Mexican Three Cheese Dip",
-                    summary = "You can never have too many Mexican recipes, so give Mexican Three Cheese Dip a try. For <b>\$3.93 per serving</b>, this recipe",
-                )
-            },
-            offset = offset + number,
-            number = number,
-            totalResults = 0,
-        )
-
+//        return RecipesWithPagingInfo(
+//            recipes = List(number) { index ->
+//                RecipeBriefInfo(
+//                    id = index,
+//                    imageUrl = "https://img.spoonacular.com/recipes/651715-312x231.jpg",
+//                    title = "Mexican Three Cheese Dip",
+//                    summary = "You can never have too many Mexican recipes, so give Mexican Three Cheese Dip a try. For <b>\$3.93 per serving</b>, this recipe",
+//                    price = Random(index).nextFloat(),
+//                )
+//            },
+//            offset = offset + number,
+//            number = number,
+//            totalResults = 0,
+//        )
+//
         val (sortOption, sortDirection) = sortOption.toSpoonacularRecipeSortOptionAndSpoonacularRecipeSortDirection()
 
         return spoonacularRemoteDataSource.requestRecipes(
@@ -60,6 +61,7 @@ internal class RecipeSearchRepositoryImpl @Inject constructor(
             imageUrl = imageUrl,
             title = title,
             summary = summary,
+            price = pricePerServing,
         )
     }
 
@@ -70,6 +72,10 @@ internal class RecipeSearchRepositoryImpl @Inject constructor(
             SearchResultSortOption.CALORIES_ASCENDING -> SpoonacularRecipeSortOption.CALORIES to
                     SpoonacularRecipeSortDirection.ASCENDING
             SearchResultSortOption.CALORIES_DESCENDING -> SpoonacularRecipeSortOption.CALORIES to
+                    SpoonacularRecipeSortDirection.DESCENDING
+            SearchResultSortOption.PRICE_ASCENDING -> SpoonacularRecipeSortOption.PRICE to
+                    SpoonacularRecipeSortDirection.ASCENDING
+            SearchResultSortOption.PRICE_DESCENDING -> SpoonacularRecipeSortOption.PRICE to
                     SpoonacularRecipeSortDirection.DESCENDING
         }
     }

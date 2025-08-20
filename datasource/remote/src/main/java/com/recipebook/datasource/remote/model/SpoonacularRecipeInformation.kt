@@ -24,4 +24,7 @@ data class SpoonacularRecipeInformation(
 
     @SerialName("sourceUrl")
     val sourceWebsiteLink: String,
+
+    @SerialName("pricePerServing")
+    val pricePerServing: Float,
 )

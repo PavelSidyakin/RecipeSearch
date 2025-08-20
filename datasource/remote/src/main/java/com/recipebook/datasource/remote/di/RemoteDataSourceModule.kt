@@ -30,7 +30,11 @@ internal object RemoteDataSourceModule {
     fun provideSpoonacularRemoteDataSourceRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.spoonacular.com")
-            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(
+                Json.asConverterFactory(
+                    "application/json; charset=UTF8".toMediaType(),
+                )
+            )
             .build()
     }
 }

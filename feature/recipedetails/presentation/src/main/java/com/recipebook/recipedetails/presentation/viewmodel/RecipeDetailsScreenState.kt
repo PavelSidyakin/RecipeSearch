@@ -8,6 +8,7 @@ internal data class RecipeDetailsScreenState(
     val instructions: String,
     val sourceWebsiteLink: String,
     val isFavorite: Boolean,
+    val price: Float,
 ) {
     companion object {
         val initialState = RecipeDetailsScreenState(
@@ -18,6 +19,7 @@ internal data class RecipeDetailsScreenState(
             instructions = "",
             sourceWebsiteLink = "",
             isFavorite = false,
+            price = 0f,
         )
     }
 }

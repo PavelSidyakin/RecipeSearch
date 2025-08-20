@@ -1,13 +1,11 @@
 package com.recipebook.datasource.remote.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+enum class SpoonacularRecipeSortDirection(val value: String) {
+    ASCENDING("asc"),
+    DESCENDING("desc"),
+    ;
 
-@Serializable
-enum class SpoonacularRecipeSortDirection {
-    @SerialName("asc")
-    ASCENDING,
-
-    @SerialName("desc")
-    DESCENDING,
+    override fun toString(): String {
+        return value
+    }
 }

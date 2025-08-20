@@ -31,10 +31,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.recipebook.recipesearch.domain.model.SearchResultSortOption
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchExternalEvent
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchListItemState
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchScreenState
+import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchSortOption
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchViewModel
 import com.recipebook.strings.R
 import com.recipebook.uikit.icons.History
@@ -173,10 +173,10 @@ private fun RecipeSearchScreenImpl(
 }
 
 @Composable
-private fun SearchResultSortOption.toText(): String {
+private fun RecipeSearchSortOption.toText(): String {
     return when (this) {
-        SearchResultSortOption.CALORIES_ASCENDING -> stringResource(R.string.recipe_search_calories_asc)
-        SearchResultSortOption.CALORIES_DESCENDING -> stringResource(R.string.recipe_search_calories_desc)
+        RecipeSearchSortOption.PRICE_ASCENDING -> stringResource(R.string.recipe_search_price_asc)
+        RecipeSearchSortOption.PRICE_DESCENDING -> stringResource(R.string.recipe_search_price_desc)
     }
 }
 
@@ -191,7 +191,7 @@ private fun RecipeSearchScreenImplPreview() {
             state = RecipeSearchScreenState(
                 searchText = "",
                 lazyPagingItems = null,
-                sortOption = SearchResultSortOption.CALORIES_ASCENDING,
+                sortOption = RecipeSearchSortOption.PRICE_DESCENDING,
             ),
             onSearchTextChanged = { },
             onCaloriesSortClicked = { },
