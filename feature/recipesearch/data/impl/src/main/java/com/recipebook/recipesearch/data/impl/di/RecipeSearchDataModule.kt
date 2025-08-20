@@ -13,6 +13,5 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 internal interface RecipeSearchDataModule {
 
     @Binds
-    @ActivityRetainedScoped
     fun bindRecipeSearchRepository(impl: RecipeSearchRepositoryImpl): RecipeSearchRepository
 }

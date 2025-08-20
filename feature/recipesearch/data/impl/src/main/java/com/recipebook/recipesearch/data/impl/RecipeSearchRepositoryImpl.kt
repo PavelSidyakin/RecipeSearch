@@ -16,17 +16,12 @@ internal class RecipeSearchRepositoryImpl @Inject constructor(
     private val spoonacularRemoteDataSource: SpoonacularRemoteDataSource,
 ) : RecipeSearchRepository {
 
-    private var latestOffset: Int = 0
-
     override suspend fun requestRecipes(
         query: String,
         offset: Int,
         number: Int,
         sortOption: SearchResultSortOption
     ): RecipesWithPagingInfo {
-        latestOffset += offset
-        if (latestOffset > 100) throw RuntimeException()
-
         return RecipesWithPagingInfo(
             recipes = List(number) { index ->
                 RecipeBriefInfo(

@@ -1,4 +1,4 @@
-package com.recipebook.recipedetails.presentation.viewmodel
+package com.recipebook.recipedetails.presentation.model
 
 internal data class RecipeDetailsScreenState(
     val recipeId: Int,
@@ -9,6 +9,7 @@ internal data class RecipeDetailsScreenState(
     val sourceWebsiteLink: String,
     val isFavorite: Boolean,
     val price: Float,
+    val errorType: ErrorType?,
 ) {
     companion object {
         val initialState = RecipeDetailsScreenState(
@@ -20,6 +21,7 @@ internal data class RecipeDetailsScreenState(
             sourceWebsiteLink = "",
             isFavorite = false,
             price = 0f,
+            errorType = null,
         )
     }
 }
