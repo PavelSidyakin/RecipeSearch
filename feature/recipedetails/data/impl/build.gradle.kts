@@ -30,7 +30,14 @@ android {
     }
 }
 
+afterEvaluate {
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
+}
+
 dependencies {
+    implementation(project(":shared:utils"))
     implementation(project(":feature:recipedetails:data:api"))
     implementation(project(":datasource:local"))
     implementation(project(":datasource:remote"))
@@ -38,4 +45,11 @@ dependencies {
     implementation(libs.hilt)
 
     ksp(libs.hilt.compiler)
+
+    testImplementation(project(":shared:testutils"))
+    testImplementation(libs.testing.junit.jupiter)
+    testImplementation(libs.testing.junit.jupiter.params)
+    testImplementation(libs.testing.mockK)
+    testImplementation(libs.testing.coroutines)
+    testRuntimeOnly(libs.testing.junit.platformlauncher)
 }

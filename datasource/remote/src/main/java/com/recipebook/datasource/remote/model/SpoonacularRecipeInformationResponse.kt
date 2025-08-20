@@ -6,7 +6,7 @@ import kotlinx.serialization.json.JsonIgnoreUnknownKeys
 
 @Serializable
 @JsonIgnoreUnknownKeys
-data class SpoonacularRecipeInformation(
+data class SpoonacularRecipeInformationResponse(
     @SerialName("id")
     val id: Int,
 

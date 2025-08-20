@@ -1,6 +1,6 @@
 package com.recipebook.datasource.remote
 
-import com.recipebook.datasource.remote.model.SpoonacularRecipeInformation
+import com.recipebook.datasource.remote.model.SpoonacularRecipeInformationResponse
 import com.recipebook.datasource.remote.model.SpoonacularRecipeResponse
 import com.recipebook.datasource.remote.model.SpoonacularRecipeSortDirection
 import com.recipebook.datasource.remote.model.SpoonacularRecipeSortOption
@@ -35,5 +35,5 @@ interface SpoonacularRemoteDataSource {
     suspend fun requestRecipeInformation(
         @Path("id")
         recipeId: Int,
-    ): SpoonacularRecipeInformation
+    ): SpoonacularRecipeInformationResponse
 }
