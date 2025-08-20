@@ -1,6 +1,8 @@
 package com.recipebook.recipedetails.presentation.screen
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -75,6 +81,7 @@ private fun RecipeDetailsScreenImpl(
         when (state.errorType) {
             null -> DetailsList(
                 modifier = Modifier.fillMaxWidth(),
+                onFavoriteClicked = onFavoriteClicked,
                 state = state,
             )
 
@@ -98,6 +105,7 @@ private fun RecipeDetailsScreenImpl(
 @Composable
 private fun DetailsList(
     state: RecipeDetailsScreenState,
+    onFavoriteClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -106,12 +114,31 @@ private fun DetailsList(
         contentPadding = PaddingValues(all = Padding.Quad),
     ) {
         item {
-            RemoteImage(
+            Box(
                 modifier = Modifier
-                    .padding(bottom = Padding.Quad)
-                    .size(RecipeImageSize),
-                imageUrl = state.recipeImageUrl,
-            )
+                    .fillMaxWidth()
+                    .padding(bottom = Padding.Quad),
+                contentAlignment = Alignment.Center,
+            ) {
+                RemoteImage(
+                    modifier = Modifier
+                        .size(RecipeImageSize),
+                    imageUrl = state.recipeImageUrl,
+                )
+                Icon(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .clickable(
+                            onClick = onFavoriteClicked,
+                        ),
+                    imageVector = when (state.isFavorite) {
+                        true -> Icons.Filled.Favorite
+                        false -> Icons.Filled.FavoriteBorder
+                    },
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    contentDescription = null,
+                )
+            }
         }
         item {
             Text(
@@ -246,5 +273,6 @@ private class RecipeDetailsScreenImplPreviewParameterProvider : PreviewParameter
     override val values: Sequence<RecipeDetailsScreenState> = sequenceOf(
         defaultState,
         defaultState.copy(errorType = ErrorType.NETWORK),
+        defaultState.copy(isFavorite = true),
     )
 }

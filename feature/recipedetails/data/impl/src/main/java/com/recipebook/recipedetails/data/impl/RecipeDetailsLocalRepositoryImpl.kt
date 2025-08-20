@@ -5,18 +5,29 @@ import com.recipebook.datasource.local.db.entity.ViewedRecipeEntity
 import com.recipebook.recipedetails.data.api.RecipeDetailsLocalRepository
 import com.recipebook.recipedetails.domain.model.RecipeDetails
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 internal class RecipeDetailsLocalRepositoryImpl @Inject constructor(
     private val viewedRecipeDao: ViewedRecipeDao,
 ) : RecipeDetailsLocalRepository {
+    override fun observeRecipeDetails(recipeId: Int): Flow<RecipeDetails> {
+        return viewedRecipeDao.observeViewedRecipe(recipeId)
+            .map { it.toRecipeDetails() }
+    }
+
     override suspend fun requestRecipeDetails(recipeId: Int): RecipeDetails? = withContext(Dispatchers.IO) {
         viewedRecipeDao.requestViewedRecipe(recipeId = recipeId)?.toRecipeDetails()
     }
 
     override suspend fun saveRecipe(recipeDetails: RecipeDetails) = withContext(Dispatchers.IO) {
         viewedRecipeDao.updateOrInsertViewedRecipe(recipeDetails.toViewedRecipeEntity())
+    }
+
+    override suspend fun setFavorite(recipeId: Int, isFavorite: Boolean) {
+        viewedRecipeDao.updateIsFavorite(recipeId, isFavorite)
     }
 
     private fun ViewedRecipeEntity.toRecipeDetails(): RecipeDetails {

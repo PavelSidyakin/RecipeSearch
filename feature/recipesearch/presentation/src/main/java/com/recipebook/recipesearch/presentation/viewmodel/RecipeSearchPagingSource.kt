@@ -13,7 +13,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import java.io.IOException
 
-internal const val RECIPE_SEARCH_PAGE_SIZE = 50
+internal const val RECIPE_SEARCH_PAGE_SIZE = 10
 private const val LOG_TAG = "RecipeSearchPagingSource"
 
 internal class RecipeSearchPagingSource @AssistedInject constructor(
