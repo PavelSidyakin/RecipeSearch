@@ -29,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.recipebook.strings.R
 import com.recipebook.uikit.size.Padding
 import com.recipebook.uikit.theme.RecipeSearchTheme
+import com.recipebook.uikit.widgets.ScreenHeader
 import com.recipebook.viewedrecipes.presentation.model.ViewedRecipesItemState
 import com.recipebook.viewedrecipes.presentation.model.ViewedRecipesScreenState
 import com.recipebook.viewedrecipes.presentation.viewmodel.ViewedRecipesExternalEvent
@@ -39,6 +40,7 @@ import kotlinx.coroutines.flow.onEach
 @Composable
 fun ViewedRecipesScreen(
     onRecipeClicked: (recipeId: Int) -> Unit,
+    onBackButtonClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel: ViewedRecipesViewModel = hiltViewModel()
@@ -55,6 +57,7 @@ fun ViewedRecipesScreen(
             .onEach { event ->
                 when (event) {
                     is ViewedRecipesExternalEvent.OnRecipeClicked -> onRecipeClicked(event.recipeId)
+                    ViewedRecipesExternalEvent.OnBackButtonClicked -> onBackButtonClicked()
                 }
             }
             .launchIn(this)
@@ -65,6 +68,7 @@ fun ViewedRecipesScreen(
         state = state,
         onRecipeClicked = viewModel::onRecipeClick,
         onShowFavoritesOnlySwitchChange = viewModel::onShowFavoritesOnlySwitchChange,
+        onBackButtonClicked = viewModel::onBackButtonClicked,
     )
 }
 
@@ -73,12 +77,16 @@ private fun ViewedRecipesScreenImpl(
     state: ViewedRecipesScreenState,
     onShowFavoritesOnlySwitchChange: (Boolean) -> Unit,
     onRecipeClicked: (recipeId: Int) -> Unit,
+    onBackButtonClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
+        ScreenHeader(
+            title = stringResource(R.string.viewed_recipes_title),
+            onBackButtonClicked = onBackButtonClicked
+        )
         Row(
             modifier = Modifier
-                .padding(top = Padding.Quad)
                 .padding(horizontal = Padding.Quad)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -86,7 +94,7 @@ private fun ViewedRecipesScreenImpl(
         ) {
             Text(
                 modifier = Modifier.weight(1f),
-                text = stringResource(R.string.viewed_recipe_only_favorites_filter),
+                text = stringResource(R.string.viewed_recipes_only_favorites_filter),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface,
             )
@@ -144,6 +152,7 @@ private fun ViewedRecipesScreenImplPreview() {
             ),
             onShowFavoritesOnlySwitchChange = { },
             onRecipeClicked = { },
+            onBackButtonClicked = { },
         )
     }
 }

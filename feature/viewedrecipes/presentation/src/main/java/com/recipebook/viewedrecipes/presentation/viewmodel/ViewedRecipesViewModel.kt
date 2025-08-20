@@ -40,6 +40,12 @@ internal class ViewedRecipesViewModel @Inject constructor(
         updateData()
     }
 
+    fun onBackButtonClicked() {
+        viewModelScope.launch {
+            externalEventsFlowImpl.emit(ViewedRecipesExternalEvent.OnBackButtonClicked)
+        }
+    }
+
     private fun updateData() {
         updateDataJob?.cancel()
         updateDataJob = viewModelScope.launch {

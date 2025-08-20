@@ -49,6 +49,7 @@ internal class MainActivity : ComponentActivity() {
                             RecipeDetailsScreen(
                                 modifier = Modifier.fillMaxSize(),
                                 recipeId = destination.recipeId,
+                                onBackButtonClicked = { navController.popBackStack() },
                             )
                         }
                         composable<NavigationDestination.ViewedRecipes> {
@@ -56,6 +57,7 @@ internal class MainActivity : ComponentActivity() {
                                 onRecipeClicked = { recipeId ->
                                     navController.navigate(route = NavigationDestination.RecipeDetails(recipeId))
                                 },
+                                onBackButtonClicked = { navController.popBackStack() },
                             )
                         }
                     }

@@ -11,7 +11,9 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -25,11 +27,13 @@ internal class RecipeDetailsViewModel @AssistedInject constructor(
     @Assisted private val recipeId: Int,
     private val recipeDetailsInteractor: RecipeDetailsInteractor,
 ) : ViewModel() {
+    private val externalEventsFlowImpl = MutableSharedFlow<RecipeDetailsExternalEvent>()
     private val stateFlowImpl = MutableStateFlow(RecipeDetailsScreenState.initialState)
 
     private var observeJob: Job? = null
 
     val stateFlow = stateFlowImpl.asStateFlow()
+    val externalEventsFlow = externalEventsFlowImpl.asSharedFlow()
 
     fun onLaunch() {
         observeJob?.cancel()
@@ -57,6 +61,12 @@ internal class RecipeDetailsViewModel @AssistedInject constructor(
     fun onFavoriteClicked() {
         viewModelScope.launch {
             recipeDetailsInteractor.setFavorite(recipeId, !stateFlowImpl.value.isFavorite)
+        }
+    }
+
+    fun onBackButtonClicked() {
+        viewModelScope.launch {
+            externalEventsFlowImpl.emit(RecipeDetailsExternalEvent.OnBackButtonClicked)
         }
     }
 

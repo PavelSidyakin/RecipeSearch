@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,17 +38,22 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.recipebook.recipedetails.presentation.model.ErrorType
 import com.recipebook.recipedetails.presentation.model.RecipeDetailsScreenState
+import com.recipebook.recipedetails.presentation.viewmodel.RecipeDetailsExternalEvent
 import com.recipebook.recipedetails.presentation.viewmodel.RecipeDetailsViewModel
 import com.recipebook.strings.R
 import com.recipebook.uikit.size.Padding
 import com.recipebook.uikit.theme.RecipeSearchTheme
 import com.recipebook.uikit.widgets.RemoteImage
+import com.recipebook.uikit.widgets.ScreenHeader
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 private val RecipeImageSize = 164.dp
 
 @Composable
 fun RecipeDetailsScreen(
     recipeId: Int,
+    onBackButtonClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel: RecipeDetailsViewModel = hiltViewModel(
@@ -59,6 +65,16 @@ fun RecipeDetailsScreen(
 
     val state by viewModel.stateFlow.collectAsStateWithLifecycle()
 
+    LaunchedEffect(Unit) {
+        viewModel.externalEventsFlow
+            .onEach { event ->
+                when (event) {
+                    RecipeDetailsExternalEvent.OnBackButtonClicked -> onBackButtonClicked()
+                }
+            }
+            .launchIn(this)
+    }
+
     DisposableEffect(Unit) {
         viewModel.onLaunch()
         onDispose { viewModel.onDispose() }
@@ -68,6 +84,7 @@ fun RecipeDetailsScreen(
         modifier = modifier,
         state = state,
         onFavoriteClicked = viewModel::onFavoriteClicked,
+        onBackButtonClicked = viewModel::onBackButtonClicked,
     )
 }
 
@@ -75,9 +92,14 @@ fun RecipeDetailsScreen(
 private fun RecipeDetailsScreenImpl(
     state: RecipeDetailsScreenState,
     onFavoriteClicked: () -> Unit,
+    onBackButtonClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
+        ScreenHeader(
+            title = "",
+            onBackButtonClicked = onBackButtonClicked,
+        )
         when (state.errorType) {
             null -> DetailsList(
                 modifier = Modifier.fillMaxWidth(),
@@ -109,9 +131,9 @@ private fun DetailsList(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        modifier = modifier.padding(Padding.Quad),
+        modifier = modifier.padding(horizontal = Padding.Quad),
         horizontalAlignment = Alignment.CenterHorizontally,
-        contentPadding = PaddingValues(all = Padding.Quad),
+        contentPadding = PaddingValues(horizontal = Padding.Quad),
     ) {
         item {
             Box(
@@ -236,6 +258,7 @@ private fun RecipeDetailsScreenImplPreview(
             modifier = Modifier.fillMaxSize(),
             state = state,
             onFavoriteClicked = { },
+            onBackButtonClicked = { },
         )
     }
 }
