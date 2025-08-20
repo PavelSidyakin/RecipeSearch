@@ -29,5 +29,5 @@ android {
 }
 
 dependencies {
-    api(project(":feature:recipedetails:domain:models"))
+    api(project(":feature:recipedetails:models"))
 }

@@ -1,4 +1,4 @@
-package com.recipebook.recipesearch.presentation.viewmodel
+package com.recipebook.recipesearch.presentation.model
 
 internal data class RecipeSearchListItemState(
     val recipeId: Int,

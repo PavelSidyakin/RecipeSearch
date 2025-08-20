@@ -7,7 +7,11 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.compose.LazyPagingItems
+import com.recipebook.recipesearch.presentation.model.RecipeSearchListItemState
+import com.recipebook.recipesearch.presentation.model.RecipeSearchScreenState
+import com.recipebook.recipesearch.presentation.model.RecipeSearchSortOption
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,12 +38,13 @@ internal class RecipeSearchViewModel @Inject constructor(
     private val stateFlowImpl = MutableStateFlow(RecipeSearchScreenState.initialState)
     private val searchTextFlow = MutableStateFlow("")
     private val sortOptionFlow = MutableStateFlow(RecipeSearchSortOption.PRICE_DESCENDING)
-    private val pagingListFlowImpl = MutableSharedFlow<PagingData<RecipeSearchListItemState>>(replay = 1)
+    private val pagingListFlowImpl = MutableSharedFlow<PagingData<RecipeSearchListItemState>>()
 
     private val externalEventsFlowImpl = MutableSharedFlow<RecipeSearchExternalEvent>()
 
     val stateFlow = stateFlowImpl.asStateFlow()
-    val pagingListFlow: Flow<PagingData<RecipeSearchListItemState>> = pagingListFlowImpl.cachedIn(viewModelScope)
+    val pagingListFlow: Flow<PagingData<RecipeSearchListItemState>> = pagingListFlowImpl
+        .cachedIn(viewModelScope)
     val externalEventsFlow = externalEventsFlowImpl.asSharedFlow()
 
     init {
@@ -48,6 +53,7 @@ internal class RecipeSearchViewModel @Inject constructor(
                 .debounce(SEARCH_DEBOUNCE_TIMEOUT_MS.toDuration(DurationUnit.MILLISECONDS)),
             sortOptionFlow,
         ) { text, sortOption -> text to sortOption }
+            .onEach { pagingListFlowImpl.emit(PagingData.empty()) }
             .flatMapLatest { (text, sortOption) ->
                 Pager(
                     config = PagingConfig(

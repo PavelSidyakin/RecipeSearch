@@ -19,22 +19,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.recipebook.recipesearch.presentation.model.RecipeSearchListItemState
+import com.recipebook.recipesearch.presentation.model.RecipeSearchScreenState
+import com.recipebook.recipesearch.presentation.model.RecipeSearchSortOption
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchExternalEvent
-import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchListItemState
-import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchScreenState
-import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchSortOption
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchViewModel
 import com.recipebook.strings.R
 import com.recipebook.uikit.icons.History
@@ -43,6 +47,7 @@ import com.recipebook.uikit.size.Padding
 import com.recipebook.uikit.theme.RecipeSearchTheme
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.io.IOException
 
 @Composable
 fun RecipeSearchScreen(
@@ -52,13 +57,15 @@ fun RecipeSearchScreen(
     val viewModel: RecipeSearchViewModel = hiltViewModel()
 
     val state by viewModel.stateFlow.collectAsStateWithLifecycle()
+    val pagingListInvalidate by viewModel.pagingListFlow.collectAsStateWithLifecycle(PagingData.empty())
 
-    val lazyPagingItems: LazyPagingItems<RecipeSearchListItemState> = viewModel.pagingListFlow
-        .collectAsLazyPagingItems()
+    val lazyPagingItems: LazyPagingItems<RecipeSearchListItemState> = key(pagingListInvalidate) {
+        viewModel.pagingListFlow.collectAsLazyPagingItems()
+    }
 
     // Workaround over Paging 3 library.
     // We can't get LazyPagingItems other than calling composable function collectAsLazyPagingItems()
-    // To have consistency is the state's updates via VM, call VM here and let VM update the state
+    // To have consistency is the state's updates via VM, call VM here and let the VM update the state
     DisposableEffect(lazyPagingItems) {
         viewModel.onLazyPagingItemsReady(lazyPagingItems)
         onDispose { }
@@ -145,7 +152,6 @@ private fun RecipeSearchScreenImpl(
                 color = MaterialTheme.colorScheme.onSurface,
             )
         }
-
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(all = Padding.Double),
@@ -168,8 +174,39 @@ private fun RecipeSearchScreenImpl(
                     )
                 }
             }
+
+            state.lazyPagingItems.getPagingError()?.let { error ->
+                item {
+                    ErrorItem(
+                        modifier = Modifier.fillMaxWidth(),
+                        throwable = error,
+                    )
+                }
+            }
         }
     }
+}
+
+private fun LazyPagingItems<RecipeSearchListItemState>?.getPagingError(): Throwable? {
+    return ((this?.loadState?.source?.refresh as? LoadState.Error)
+        ?: (this?.loadState?.source?.append as? LoadState.Error))?.error
+}
+
+@Composable
+private fun ErrorItem(
+    modifier: Modifier = Modifier,
+    throwable: Throwable,
+) {
+    Text(
+        modifier = modifier,
+        text = when (throwable) {
+            is IOException -> stringResource(R.string.error_network_connection)
+            else -> stringResource(R.string.error_general)
+        },
+        style = MaterialTheme.typography.labelMedium,
+        color = MaterialTheme.colorScheme.error,
+        textAlign = TextAlign.Center,
+    )
 }
 
 @Composable

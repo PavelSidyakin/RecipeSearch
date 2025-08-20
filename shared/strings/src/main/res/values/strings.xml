@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Recipe Book</string>
+    <string name="error_network_connection">Failed to execute request. Check the internet connection</string>
+    <string name="error_general">Service is not available. Try again later</string>
 
     <string name="recipe_search_title">Search a recipe</string>
     <string name="recipe_search_hint">Type name or ingredient…</string>

@@ -1,4 +1,4 @@
-package com.recipebook.recipesearch.presentation.viewmodel
+package com.recipebook.recipesearch.presentation.model
 
 import androidx.paging.compose.LazyPagingItems
 
@@ -11,7 +11,7 @@ internal data class RecipeSearchScreenState(
         val initialState = RecipeSearchScreenState(
             searchText = "",
             lazyPagingItems = null,
-            sortOption = RecipeSearchSortOption.PRICE_DESCENDING
+            sortOption = RecipeSearchSortOption.PRICE_DESCENDING,
         )
     }
 }

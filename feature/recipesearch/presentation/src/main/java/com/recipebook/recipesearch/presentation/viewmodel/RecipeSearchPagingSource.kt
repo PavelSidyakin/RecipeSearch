@@ -6,9 +6,12 @@ import com.recipebook.logging.LogLevel
 import com.recipebook.logging.debugLog
 import com.recipebook.recipesearch.domain.api.RecipeSearchInteractor
 import com.recipebook.recipesearch.domain.model.SearchResultSortOption
+import com.recipebook.recipesearch.presentation.model.RecipeSearchListItemState
+import com.recipebook.recipesearch.presentation.model.RecipeSearchSortOption
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import java.io.IOException
 
 internal const val RECIPE_SEARCH_PAGE_SIZE = 50
 private const val LOG_TAG = "RecipeSearchPagingSource"
@@ -52,11 +55,11 @@ internal class RecipeSearchPagingSource @AssistedInject constructor(
                 prevKey = null,
                 nextKey = nextKey,
             )
-        } catch (error: Exception) {
+        } catch (error: Throwable) {
             debugLog {
                 tag = LOG_TAG
                 level = LogLevel.ERROR
-                message = "Failed to request data "
+                message = "Failed to request data (Throwable). ${error.message}"
                 throwable = error
             }
             LoadResult.Error(error)

@@ -1,4 +1,4 @@
-package com.recipebook.recipesearch.presentation.viewmodel
+package com.recipebook.recipesearch.presentation.model
 
 internal enum class RecipeSearchSortOption {
     PRICE_ASCENDING,

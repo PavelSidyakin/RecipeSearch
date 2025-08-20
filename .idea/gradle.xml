@@ -24,7 +24,7 @@
             <option value="$PROJECT_DIR$/feature/recipedetails/domain" />
             <option value="$PROJECT_DIR$/feature/recipedetails/domain/api" />
             <option value="$PROJECT_DIR$/feature/recipedetails/domain/impl" />
-            <option value="$PROJECT_DIR$/feature/recipedetails/domain/models" />
+            <option value="$PROJECT_DIR$/feature/recipedetails/models" />
             <option value="$PROJECT_DIR$/feature/recipedetails/presentation" />
             <option value="$PROJECT_DIR$/feature/recipesearch" />
             <option value="$PROJECT_DIR$/feature/recipesearch/data" />
@@ -33,7 +33,7 @@
             <option value="$PROJECT_DIR$/feature/recipesearch/domain" />
             <option value="$PROJECT_DIR$/feature/recipesearch/domain/api" />
             <option value="$PROJECT_DIR$/feature/recipesearch/domain/impl" />
-            <option value="$PROJECT_DIR$/feature/recipesearch/domain/models" />
+            <option value="$PROJECT_DIR$/feature/recipesearch/models" />
             <option value="$PROJECT_DIR$/feature/recipesearch/presentation" />
             <option value="$PROJECT_DIR$/shared" />
             <option value="$PROJECT_DIR$/shared/logging" />

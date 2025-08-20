@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchListItemState
+import com.recipebook.recipesearch.presentation.model.RecipeSearchListItemState
 import com.recipebook.uikit.size.Padding
 import com.recipebook.uikit.theme.RecipeSearchTheme
 import com.recipebook.uikit.widgets.RemoteImage
