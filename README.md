@@ -1,6 +1,6 @@
 # RecipeSearch
 
-A sample application.
+A sample application. Demonstrates using the clean architecture concept.
 
 ## Build 
 Add your Spoonacular API KEY to `gradle.properties` file in the [gradle home directory](https://docs.gradle.org/current/userguide/directory_layout.html#dir:gradle_user_home) or directly in the project (not recommended):
