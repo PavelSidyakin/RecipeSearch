@@ -7,7 +7,7 @@ Add your Spoonacular API KEY to `gradle.properties` file in the [gradle home dir
 ```
 spoonacularApiKey=<YOUR API KEY>
 ```
-Then build the project in Android Studio and run. 
+Then build the project in Android Studio and run it. 
 Or build directly with Gradle:
 ```
 gradlew assembleDebug
