@@ -44,8 +44,8 @@ dependencies {
 
     ksp(libs.hilt.compiler)
 
-    testImplementation(libs.testing.junit.jupiter)
-    testImplementation(libs.testing.junit.jupiter.params)
+    testImplementation(libs.testing.junit5.jupiter)
+    testImplementation(libs.testing.junit5.jupiter.params)
     testImplementation(libs.testing.mockK)
     testImplementation(libs.testing.coroutines)
     testRuntimeOnly(libs.testing.junit.platformlauncher)

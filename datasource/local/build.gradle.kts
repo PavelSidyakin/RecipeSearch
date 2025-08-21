@@ -35,6 +35,14 @@ android {
     }
 }
 
+afterEvaluate {
+    tasks.withType<Test> {
+        useJUnitPlatform {
+            includeEngines("junit-vintage")
+        }
+    }
+}
+
 dependencies {
     implementation(libs.hilt)
     implementation(libs.serialization)
@@ -43,4 +51,16 @@ dependencies {
 
     ksp(libs.hilt.compiler)
     ksp(libs.room.compiler)
+
+    testImplementation(project(":shared:testutils"))
+    testImplementation(libs.testing.junit4)
+    testImplementation(libs.testing.junit5.jupiter)
+    testImplementation(libs.testing.junit5.jupiter.params)
+    testImplementation(libs.testing.mockK)
+    testImplementation(libs.testing.coroutines)
+    testImplementation(libs.testing.robolectric)
+    testImplementation(libs.testing.android.test.core)
+    testImplementation(libs.testing.android.arch.test.core)
+    testRuntimeOnly(libs.testing.junit5.vintage)
+    testRuntimeOnly(libs.testing.junit.platformlauncher)
 }

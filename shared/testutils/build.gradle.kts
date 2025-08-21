@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.recipebook.utils"
+    namespace = "com.recipebook.testutils"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
