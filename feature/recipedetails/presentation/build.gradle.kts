@@ -34,6 +34,12 @@ android {
     }
 }
 
+afterEvaluate {
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
+}
+
 dependencies {
 
     implementation(project(":shared:logging"))
@@ -58,4 +64,11 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
 
     ksp(libs.hilt.compiler)
+
+    testImplementation(project(":shared:testutils"))
+    testImplementation(libs.testing.junit5.jupiter)
+    testImplementation(libs.testing.junit5.jupiter.params)
+    testImplementation(libs.testing.mockK)
+    testImplementation(libs.testing.coroutines)
+    testRuntimeOnly(libs.testing.junit.platformlauncher)
 }
