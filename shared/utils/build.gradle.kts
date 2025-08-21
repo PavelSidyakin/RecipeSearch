@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.coroutines.core)
     implementation(libs.hilt)
 
     ksp(libs.hilt.compiler)

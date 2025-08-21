@@ -30,6 +30,4 @@ android {
 
 dependencies {
     api(project(":feature:viewedrecipes:models"))
-
-    implementation(libs.androidx.core.ktx)
 }

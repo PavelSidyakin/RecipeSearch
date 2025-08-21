@@ -31,5 +31,5 @@ android {
 dependencies {
     api(project(":feature:recipedetails:models"))
 
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.coroutines.core)
 }
