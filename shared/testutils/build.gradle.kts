@@ -32,6 +32,10 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
     implementation(project(":shared:utils"))
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.testing.junit5.jupiter)
+    implementation(libs.testing.junit5.jupiter.params)
+    implementation(libs.testing.mockK)
+    implementation(libs.testing.coroutines)
 }

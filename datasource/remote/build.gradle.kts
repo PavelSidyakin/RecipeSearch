@@ -49,9 +49,12 @@ dependencies {
 
     ksp(libs.hilt.compiler)
 
+    testImplementation(project(":shared:testutils"))
     testImplementation(libs.testing.junit5.jupiter)
+    testImplementation(libs.retrofit.mock)
     testImplementation(libs.testing.junit5.jupiter.params)
     testImplementation(libs.testing.mockK)
+    testImplementation(libs.testing.mockwebserver)
     testImplementation(libs.testing.coroutines)
     testRuntimeOnly(libs.testing.junit.platformlauncher)
 }

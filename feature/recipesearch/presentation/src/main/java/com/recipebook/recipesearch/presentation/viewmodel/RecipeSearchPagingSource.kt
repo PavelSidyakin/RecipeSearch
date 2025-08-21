@@ -11,7 +11,6 @@ import com.recipebook.recipesearch.presentation.model.RecipeSearchSortOption
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import java.io.IOException
 
 internal const val RECIPE_SEARCH_PAGE_SIZE = 10
 private const val LOG_TAG = "RecipeSearchPagingSource"
@@ -38,7 +37,7 @@ internal class RecipeSearchPagingSource @AssistedInject constructor(
                 },
             )
             val nextKey = when {
-                response.recipes.isEmpty() -> null
+                response.number + response.offset >= response.totalResults -> null
                 else -> offset + response.recipes.size
             }
 

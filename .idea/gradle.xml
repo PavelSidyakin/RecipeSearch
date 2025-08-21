@@ -47,7 +47,9 @@
             <option value="$PROJECT_DIR$/shared" />
             <option value="$PROJECT_DIR$/shared/logging" />
             <option value="$PROJECT_DIR$/shared/strings" />
+            <option value="$PROJECT_DIR$/shared/testutils" />
             <option value="$PROJECT_DIR$/shared/uikit" />
+            <option value="$PROJECT_DIR$/shared/utils" />
           </set>
         </option>
       </GradleProjectSettings>
