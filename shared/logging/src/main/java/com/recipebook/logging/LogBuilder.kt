@@ -19,8 +19,6 @@ interface LogBuilder {
 
     /**
      * [throwable] Throwable stack will be printed to log.
-     * If [message] is not empty, the stack will be printed with [message],
-     * if [message] is empty, the stack will be printed with the first message from [messages].
      */
     var throwable: Throwable?
 }

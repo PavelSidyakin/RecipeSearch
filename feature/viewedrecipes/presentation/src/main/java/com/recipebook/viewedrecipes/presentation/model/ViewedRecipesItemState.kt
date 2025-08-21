@@ -1,6 +1,6 @@
 package com.recipebook.viewedrecipes.presentation.model
 
-data class ViewedRecipesItemState(
+internal data class ViewedRecipesItemState(
     val recipeId: Int,
     val imageUrl: String,
     val name: String,

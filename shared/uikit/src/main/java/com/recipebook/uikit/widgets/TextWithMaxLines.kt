@@ -11,6 +11,14 @@ import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 
+/**
+ * Displays multiline text with fixed height corresponding to the max lines.
+ *
+ * @param text The text to display.
+ * @param maxLines The max lines for the text.
+ * @param style The [TextStyle].
+ * @param modifier Optional [Modifier].
+ */
 @Composable
 fun TextWithMaxLines(
     text: String,

@@ -26,8 +26,13 @@ fun doLog(builder: LogBuilder) {
 // Do not remove "const". It must be compile-time constant.
 const val LOGGING_ENABLED = BuildConfig.BUILD_TYPE == "debug"
 
+/**
+ * Print a message to the logcat.
+ * Will be cut during compilation in the release build, including StringBuilder.
+ *
+ * @param block The log message builder.
+ */
 inline fun debugLog(block: LogBuilder.() -> Unit) {
-    // Will be cut during compilation in the release build, including StringBuilder
     if (LOGGING_ENABLED && LoggingConfigurator.enableLogging) {
         doLog(
             LogBuilderImpl()

@@ -1,5 +1,8 @@
 package com.recipebook.recipedetails.domain.model
 
+/**
+ * Model for recipe details.
+ */
 data class RecipeDetails(
     val recipeId: Int,
     val recipeName: String,

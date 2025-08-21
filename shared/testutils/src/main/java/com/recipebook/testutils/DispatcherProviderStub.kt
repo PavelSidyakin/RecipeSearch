@@ -12,5 +12,4 @@ class DispatcherProviderStub(
 ) : DispatcherProvider {
     override fun io(): CoroutineDispatcher = dispatcher
     override fun main(): CoroutineDispatcher = dispatcher
-    override fun mainImmediate(): CoroutineDispatcher = dispatcher
 }

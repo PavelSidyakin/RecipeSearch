@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-val RsIcon.History: ImageVector
+val RecipeBookIcon.History: ImageVector
     get() {
         if (_History != null) return _History!!
 
@@ -69,5 +69,5 @@ private var _History: ImageVector? = null
 @Composable
 @Preview
 private fun PreviewHistory() {
-    Icon(imageVector = RsIcon.History, contentDescription = null)
+    Icon(imageVector = RecipeBookIcon.History, contentDescription = null)
 }

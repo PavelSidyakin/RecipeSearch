@@ -10,6 +10,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
 import coil3.compose.AsyncImage
 
+/**
+ * Displays image with the provided URL.
+ *
+ * @param imageUrl The URL of the image.
+ * @param modifier Optional [Modifier].
+ * @param contentScale Optional [ContentScale].
+ */
 @Composable
 fun RemoteImage(
     imageUrl: String,

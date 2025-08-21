@@ -1,6 +1,6 @@
 package com.recipebook.recipesearch.presentation.viewmodel
 
-sealed interface RecipeSearchExternalEvent {
+internal sealed interface RecipeSearchExternalEvent {
     data class OnRecipeClicked(val recipeId: Int) : RecipeSearchExternalEvent
     data object OnViewedRecipesClicked : RecipeSearchExternalEvent
 }

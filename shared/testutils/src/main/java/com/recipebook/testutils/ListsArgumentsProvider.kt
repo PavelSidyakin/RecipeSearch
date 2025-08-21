@@ -7,6 +7,11 @@ import org.junit.jupiter.params.provider.ArgumentsProvider
 import org.junit.jupiter.params.support.ParameterDeclarations
 import java.util.stream.Stream
 
+/**
+ * Creates [ArgumentsProvider] with all possible combinations of values from the provided lists.
+ *
+ * @param lists The lists
+ */
 @VisibleForTesting
 fun valueListsArgumentsProvider(
     vararg lists: List<Any>,

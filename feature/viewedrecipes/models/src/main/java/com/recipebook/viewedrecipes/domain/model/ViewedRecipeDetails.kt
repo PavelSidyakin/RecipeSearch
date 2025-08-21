@@ -1,5 +1,8 @@
 package com.recipebook.viewedrecipes.domain.model
 
+/**
+ * Viewed recipe details.
+ */
 data class ViewedRecipeDetails(
     val recipeId: Int,
     val recipeName: String,

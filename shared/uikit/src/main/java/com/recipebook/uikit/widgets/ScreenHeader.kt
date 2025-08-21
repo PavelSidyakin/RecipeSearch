@@ -17,6 +17,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.recipebook.uikit.size.Padding
 import com.recipebook.uikit.theme.RecipeSearchTheme
 
+/**
+ * Screen header.
+ * Has text and a back button.
+ *
+ * @param title The title of the screen.
+ * @param onBackButtonClicked The callback is called then the back button is clicked.
+ * @param modifier Optional [Modifier].
+ */
 @Composable
 fun ScreenHeader(
     title: String,

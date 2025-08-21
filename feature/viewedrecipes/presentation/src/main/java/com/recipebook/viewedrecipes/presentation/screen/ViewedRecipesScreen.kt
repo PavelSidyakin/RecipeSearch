@@ -37,6 +37,13 @@ import com.recipebook.viewedrecipes.presentation.viewmodel.ViewedRecipesViewMode
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+/**
+ * The viewed recipes screen.
+ *
+ * @param onRecipeClicked The callback is called when a recipe is clicked.
+ * @param onBackButtonClicked The callback to be called when the back button is clicked.
+ * @param modifier Optional [Modifier]
+ */
 @Composable
 fun ViewedRecipesScreen(
     onRecipeClicked: (recipeId: Int) -> Unit,

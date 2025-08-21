@@ -50,6 +50,13 @@ import kotlinx.coroutines.flow.onEach
 
 private val RecipeImageSize = 164.dp
 
+/**
+ * The recipe details screen.
+ *
+ * @param recipeId The ID of the recipe.
+ * @param onBackButtonClicked The callback to be called when the back button is clicked.
+ * @param modifier Optional [Modifier]
+ */
 @Composable
 fun RecipeDetailsScreen(
     recipeId: Int,

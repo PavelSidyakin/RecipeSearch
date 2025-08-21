@@ -42,13 +42,20 @@ import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchExternalEv
 import com.recipebook.recipesearch.presentation.viewmodel.RecipeSearchViewModel
 import com.recipebook.strings.R
 import com.recipebook.uikit.icons.History
-import com.recipebook.uikit.icons.RsIcon
+import com.recipebook.uikit.icons.RecipeBookIcon
 import com.recipebook.uikit.size.Padding
 import com.recipebook.uikit.theme.RecipeSearchTheme
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.io.IOException
 
+/**
+ * The recipe search screen.
+ *
+ * @param onRecipeClicked The callback is called when a recipe is clicked.
+ * @param onViewedRecipesClicked The callback is called when the viewed recipes button is clicked.
+ * @param modifier Optional [Modifier]
+ */
 @Composable
 fun RecipeSearchScreen(
     onRecipeClicked: (recipeId: Int) -> Unit,
@@ -120,7 +127,7 @@ private fun RecipeSearchScreenImpl(
                     .clickable(
                         onClick = onViewedRecipesClicked,
                     ),
-                imageVector = RsIcon.History,
+                imageVector = RecipeBookIcon.History,
                 tint = MaterialTheme.colorScheme.onSurface,
                 contentDescription = null,
             )

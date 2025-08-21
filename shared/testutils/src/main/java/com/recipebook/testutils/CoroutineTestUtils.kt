@@ -7,6 +7,11 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
+/**
+ * Collects emits to a list during the action.
+ *
+ * @param action The action.
+ */
 @VisibleForTesting
 suspend fun <T> Flow<T>.collectEmits(
     action: suspend () -> Unit,
