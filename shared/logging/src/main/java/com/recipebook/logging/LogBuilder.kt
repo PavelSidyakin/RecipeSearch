@@ -1,6 +1,8 @@
 package com.recipebook.logging
 
-
+/**
+ * Log message builder.
+ */
 interface LogBuilder {
     /**
      * [tag] Log Tag

@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 
 /**
  * Stub with the specified [kotlinx.coroutines.CoroutineDispatcher] for all dispatchers.
+ * @property dispatcher Optional [CoroutineDispatcher] to set
  */
 class DispatcherProviderStub(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Unconfined,

@@ -4,8 +4,13 @@ package com.recipebook.logging
 // Just for simplification, use android.util.Log
 import android.util.Log
 
+/**
+ * Allows to enable/disable logs in runtime.
+ *
+ * Useful for unit tests.
+ *
+ */
 object LoggingConfigurator {
-    // To ignore logs in unit tests
     var enableLogging = false
 }
 
@@ -19,6 +24,10 @@ private fun printLog(tag: String, message: String, level: LogLevel, throwable: T
     }
 }
 
+/**
+ * Prints the log.
+ * Public because called from the inline function.
+ */
 fun doLog(builder: LogBuilder) {
     printLog(builder.tag, builder.message, builder.level, builder.throwable)
 }

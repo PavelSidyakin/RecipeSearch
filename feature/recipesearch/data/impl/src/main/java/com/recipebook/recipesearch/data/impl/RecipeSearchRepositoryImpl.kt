@@ -21,21 +21,6 @@ internal class RecipeSearchRepositoryImpl @Inject constructor(
         number: Int,
         sortOption: SearchResultSortOption
     ): RecipesWithPagingInfo {
-//        return RecipesWithPagingInfo(
-//            recipes = List(number) { index ->
-//                RecipeBriefInfo(
-//                    id = index,
-//                    imageUrl = "https://img.spoonacular.com/recipes/651715-312x231.jpg",
-//                    title = "Mexican Three Cheese Dip",
-//                    summary = "You can never have too many Mexican recipes, so give Mexican Three Cheese Dip a try. For <b>\$3.93 per serving</b>, this recipe",
-//                    price = 55.33f,
-//                )
-//            },
-//            offset = offset + number,
-//            number = number,
-//            totalResults = 0,
-//        )
-
         val (sortOption, sortDirection) = sortOption.toSpoonacularRecipeSortOptionAndSortDirection()
 
         return spoonacularRemoteDataSource.requestRecipes(
