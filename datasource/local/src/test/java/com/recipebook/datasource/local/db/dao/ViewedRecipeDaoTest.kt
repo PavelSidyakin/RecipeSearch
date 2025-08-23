@@ -219,4 +219,14 @@ internal class ViewedRecipeDaoTest {
             // then
             assertEquals(newRecipeEntity, emits[1])
         }
+
+    @Test
+    fun `Given a recipe is not in the DB, When observeViewedRecipe() is subscribed, Then observeViewedRecipe() emits null`() =
+        runTest {
+            // when
+            val emits = dao.observeViewedRecipe(11111).collectEmits { }
+
+            // then
+            assertNull(emits[0])
+        }
 }

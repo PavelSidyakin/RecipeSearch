@@ -6,6 +6,7 @@ import com.recipebook.recipedetails.data.api.RecipeDetailsLocalRepository
 import com.recipebook.recipedetails.domain.model.RecipeDetails
 import com.recipebook.utils.coroutineutils.DispatcherProvider
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -16,6 +17,7 @@ internal class RecipeDetailsLocalRepositoryImpl @Inject constructor(
 ) : RecipeDetailsLocalRepository {
     override fun observeRecipeDetails(recipeId: Int): Flow<RecipeDetails> {
         return viewedRecipeDao.observeViewedRecipe(recipeId)
+            .filterNotNull()
             .map { it.toRecipeDetails() }
     }
 

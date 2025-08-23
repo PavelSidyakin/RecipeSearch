@@ -23,7 +23,7 @@ interface ViewedRecipeDao {
     @Query("SELECT * FROM t_viewed_recipe WHERE f_recipeId == :recipeId")
     fun observeViewedRecipe(
         recipeId: Int,
-    ): Flow<ViewedRecipeEntity>
+    ): Flow<ViewedRecipeEntity?>
 
     @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun updateOrInsertViewedRecipe(recipeEntity: ViewedRecipeEntity)
