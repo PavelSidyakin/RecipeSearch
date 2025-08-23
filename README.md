@@ -3,7 +3,7 @@
 A sample application. Demonstrates using the clean architecture concept.
 
 ## Build 
-Add your Spoonacular API KEY to `gradle.properties` file in the [gradle home directory](https://docs.gradle.org/current/userguide/directory_layout.html#dir:gradle_user_home) or directly in the project (not recommended):
+Add your [Spoonacular](https://spoonacular.com/food-api/docs) API KEY to `gradle.properties` file in the [gradle home directory](https://docs.gradle.org/current/userguide/directory_layout.html#dir:gradle_user_home) or in the project's root (not recommended):
 ```
 spoonacularApiKey=<YOUR API KEY>
 ```
@@ -20,6 +20,6 @@ Main used technologies/libraries: Kotlin Coroutines, Hilt, Compose, Paging 3, Co
 
 Main architecture concept: Clean Architecture (MVVM for UI).
 
-Modules structure (excluding app and utils):
+Modules structure (excluding app, data models, and utils):
 
 <img height="1000" src="https://github.com/PavelSidyakin/RecipeSearch/blob/main/RecipeBook_module_diagram.png">
