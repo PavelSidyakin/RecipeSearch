@@ -3,14 +3,17 @@ package com.recipebook.recipesearch.presentation.screen
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -29,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
@@ -48,6 +52,8 @@ import com.recipebook.uikit.theme.RecipeSearchTheme
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.io.IOException
+
+private val LoadingIndicatorSize = 32.dp
 
 /**
  * The recipe search screen.
@@ -198,6 +204,19 @@ private fun RecipeSearchScreenImpl(
                     )
                 }
             }
+
+            if (state.lazyPagingItems.isLoading()) {
+                item {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(LoadingIndicatorSize),
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -205,6 +224,11 @@ private fun RecipeSearchScreenImpl(
 private fun LazyPagingItems<RecipeSearchListItemState>?.getPagingError(): Throwable? {
     return ((this?.loadState?.source?.refresh as? LoadState.Error)
         ?: (this?.loadState?.source?.append as? LoadState.Error))?.error
+}
+
+private fun LazyPagingItems<RecipeSearchListItemState>?.isLoading(): Boolean {
+    return this?.loadState?.source?.refresh is LoadState.Loading ||
+            this?.loadState?.source?.append is LoadState.Loading
 }
 
 @Composable
